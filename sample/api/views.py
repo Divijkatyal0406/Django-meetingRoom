@@ -1,16 +1,18 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from rest_framework import generics ,status
-from .serializers import RoomSerializer,CreateRoomSerializer
+from rest_framework import generics, status
+from .serializers import RoomSerializer, CreateRoomSerializer
 from .models import Room
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+
 # Create your views here.
 
+
 class RoomView(generics.ListAPIView):
-    queryset=Room.objects.all()
-    serializer_class=RoomSerializer
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
 
 class CreateRoomView(APIView):
     serializer_class = CreateRoomSerializer
@@ -38,15 +40,3 @@ class CreateRoomView(APIView):
                 return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)
 
         return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
-# def index(request):
-#     # context={
-#         # 'variable':'Divij'
-#     # }
-#     # return render(request,'index.html',context)
-#     return HttpResponse("this is homepage")
-
-# def about(request):
-#     return HttpResponse("this is about page")
-
-# def contact(request):
-#     return HttpResponse("this is contact page")
